@@ -1,0 +1,256 @@
+{
+    "version": 10,
+    "cmakeMinimumRequired": {
+        "major": 3,
+        "minor": 23,
+        "patch": 0
+    },
+    "configurePresets": [
+        {
+            "name": "mac_debug",
+            "generator": "Unix Makefiles",
+            "binaryDir": "${sourceDir}/build/debug",
+            "cacheVariables": {
+                "CMAKE_BUILD_TYPE": "Debug"
+            }
+        },
+        {
+            "name": "mac_release",
+            "generator": "Unix Makefiles",
+            "binaryDir": "${sourceDir}/build/release",
+            "cacheVariables": {
+                "CMAKE_BUILD_TYPE": "Release"
+            }
+        },
+        {
+            "name": "mingw_debug",
+            "generator": "MinGW Makefiles",
+            "binaryDir": "${sourceDir}/build/debug",
+            "cacheVariables": {
+                "CMAKE_BUILD_TYPE": "Debug"
+            }
+        },
+        {
+            "name": "mingw_release",
+            "generator": "MinGW Makefiles",
+            "binaryDir": "${sourceDir}/build/release",
+            "cacheVariables": {
+                "CMAKE_BUILD_TYPE": "Release"
+            }
+        },
+        {
+            "name": "msvc_debug",
+            "generator": "Visual Studio 17 2022",
+            "binaryDir": "${sourceDir}/build/debug",
+            "cacheVariables": {
+                "CMAKE_BUILD_TYPE": "Debug"
+            }
+        },
+        {
+            "name": "msvc_release",
+            "generator": "Visual Studio 17 2022",
+            "binaryDir": "${sourceDir}/build/release",
+            "cacheVariables": {
+                "CMAKE_BUILD_TYPE": "Release"
+            }
+        }
+    ],
+    "buildPresets": [
+        {
+            "name": "mac_debug",
+            "configurePreset": "mac_debug"
+        },
+        {
+            "name": "mac_release",
+            "configurePreset": "mac_release"
+        },
+        {
+            "name": "mingw_debug",
+            "configurePreset": "mingw_debug"
+        },
+        {
+            "name": "mingw_release",
+            "configurePreset": "mingw_release"
+        },
+        {
+            "name": "msvc_debug",
+            "configurePreset": "msvc_debug"
+        },
+        {
+            "name": "msvc_release",
+            "configurePreset": "msvc_release"
+        }
+    ],
+    "testPresets": [
+        {
+            "name": "mac_debug",
+            "configurePreset": "mac_debug",
+            "output": {
+                "outputOnFailure": true
+            },
+            "execution": {
+                "noTestsAction": "error",
+                "stopOnFailure": true
+            }
+        },
+        {
+            "name": "mac_release",
+            "configurePreset": "mac_release",
+            "output": {
+                "outputOnFailure": true
+            },
+            "execution": {
+                "noTestsAction": "error",
+                "stopOnFailure": true
+            }
+        },
+        {
+            "name": "mingw_debug",
+            "configurePreset": "mingw_debug",
+            "output": {
+                "outputOnFailure": true
+            },
+            "execution": {
+                "noTestsAction": "error",
+                "stopOnFailure": true
+            }
+        },
+        {
+            "name": "mingw_release",
+            "configurePreset": "mingw_release",
+            "output": {
+                "outputOnFailure": true
+            },
+            "execution": {
+                "noTestsAction": "error",
+                "stopOnFailure": true
+            }
+        },
+        {
+            "name": "msvc_debug",
+            "configurePreset": "msvc_debug",
+            "output": {
+                "outputOnFailure": true
+            },
+            "execution": {
+                "noTestsAction": "error",
+                "stopOnFailure": true
+            }
+        },
+        {
+            "name": "msvc_release",
+            "configurePreset": "msvc_release",
+            "output": {
+                "outputOnFailure": true
+            },
+            "execution": {
+                "noTestsAction": "error",
+                "stopOnFailure": true
+            }
+        }
+    ],
+    "workflowPresets": [
+        {
+            "name": "mac_debug",
+            "steps": [
+                {
+                    "type": "configure",
+                    "name": "mac_debug"
+                },
+                {
+                    "type": "build",
+                    "name": "mac_debug"
+                },
+                {
+                    "type": "test",
+                    "name": "mac_debug"
+                }
+            ]
+        },
+        {
+            "name": "mac_release",
+            "steps": [
+                {
+                    "type": "configure",
+                    "name": "mac_release"
+                },
+                {
+                    "type": "build",
+                    "name": "mac_release"
+                },
+                {
+                    "type": "test",
+                    "name": "mac_release"
+                }
+            ]
+        },
+        {
+            "name": "mingw_debug",
+            "steps": [
+                {
+                    "type": "configure",
+                    "name": "mingw_debug"
+                },
+                {
+                    "type": "build",
+                    "name": "mingw_debug"
+                },
+                {
+                    "type": "test",
+                    "name": "mingw_debug"
+                }
+            ]
+        },
+        {
+            "name": "mingw_release",
+            "steps": [
+                {
+                    "type": "configure",
+                    "name": "mingw_release"
+                },
+                {
+                    "type": "build",
+                    "name": "mingw_release"
+                },
+                {
+                    "type": "test",
+                    "name": "mingw_release"
+                }
+            ]
+        },
+        {
+            "name": "msvc_debug",
+            "steps": [
+                {
+                    "type": "configure",
+                    "name": "msvc_debug"
+                },
+                {
+                    "type": "build",
+                    "name": "msvc_debug"
+                },
+                {
+                    "type": "test",
+                    "name": "msvc_debug"
+                }
+            ]
+        },
+        {
+            "name": "msvc_release",
+            "steps": [
+                {
+                    "type": "configure",
+                    "name": "msvc_release"
+                },
+                {
+                    "type": "build",
+                    "name": "msvc_release"
+                },
+                {
+                    "type": "test",
+                    "name": "msvc_release"
+                }
+            ]
+        }
+    ]
+}

@@ -1,0 +1,11 @@
+{
+    "recommendations": [
+        "ms-vscode.cpptools",
+        "ms-vscode.cmake-tools",
+        "ms-vscode.cpptools-themes",
+        "matepek.vscode-catch2-test-adapter"
+    ],
+    "unwantedRecommendations": [
+        "ms-vscode-remote.remote-containers"
+    ]
+}
