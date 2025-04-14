@@ -175,8 +175,55 @@ TEST_CASE("Move Method", "[Moving the Character]"){
   CHECK(m.grid == expected_2);
 
   m.MazeInit(emptyGrid);
-  pos = m.move(m.MoveCharInit());
+  pos = m.MoveCharInit();
 
   CHECK(pos.row == -1);
   CHECK(pos.col == -1);
+
+  pos = m.move(pos);
+
+  CHECK(pos.row == -1);
+  CHECK(pos.col == -1);
+}
+
+
+
+
+
+TEST_CASE("Wincondition", "[Wincondition Test]"){
+
+  Maze m;
+
+  std::vector<std::vector<char>> v1 = {
+    {'#', '#', '#', 'o'},
+    {'#', '#', ' ', ' '},
+    {'#', ' ', ' ', '#'},
+    {'#', ' ', '#', '#'},
+  };
+  
+  std::vector<std::vector<char>> v2 = {
+    {'#', '#', '#', 'x'},
+    {'#', '#', ' ', ' '},
+    {'#', 'o', ' ', '#'},
+    {'#', ' ', '#', '#'},
+  };
+
+  std::vector<std::vector<char>> v3 = {
+    {'#', '#', '#', ' '},
+    {'#', '#', ' ', ' '},
+    {'#', ' ', 'o', '#'},
+    {'#', ' ', '#', '#'},
+  };
+
+  m.MazeInit(v1);
+
+  CHECK(m.MazeIsSolved() == true);
+
+  m.MazeInit(v2);
+
+  CHECK(m.MazeIsSolved() == false);
+
+  m.MazeInit(v3);
+
+  CHECK(m.MazeIsSolved() == false);
 }

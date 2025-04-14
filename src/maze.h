@@ -22,9 +22,9 @@ struct Maze {
 
     //Grid is a 2d-Matrix
     std::vector<std::vector<char>> grid;
-
+    
     //-------------------------------------------------------------------------------------------------------------------------------
-    //Methods:
+    //Method Definitions:
     //-------------------------------------------------------------------------------------------------------------------------------
 
     ///Instantiates empty object of type Maze with cols, rows = 0, an empty grid and a moveChar 'o'
@@ -37,6 +37,15 @@ struct Maze {
 
     ///MazeInit initializes a Maze with a given grid. REQUIREMENT: The grid needs to be rectangular
     void MazeInit(std::vector<std::vector<char>> v) {
+
+        //Checks if the grid is empty, avoiding problem of adressing an element of an empty vector
+        if (v == std::vector<std::vector<char>> {}){
+            std::cout << "An empty grid is not a Maze...";
+            cols = 0;
+            rows = 0;
+            grid = v;
+            return;
+        }
 
         //Checks if grid is rectangular and resets the Maze if not so
         for (size_t i = 0; i < v.size(); i++){
@@ -80,7 +89,9 @@ struct Maze {
 
         Position pos;
 
-        if (rows == 0 || cols == 0) {
+        //If the grid is empty or the rows or cols are zero values, the function should return a default position (-1, -1)
+        if (rows == 0 || cols == 0 || grid == std::vector<std::vector<char>> {}) {
+            std::cout<< "FEHLER IN MOVECHARINIT";
             return pos;
         }
 
@@ -104,9 +115,8 @@ struct Maze {
     /// @param character specifies the position of the character on the grid 
     Position move(Position pos){
 
-        //check is specified position is inside of the grid
+        //check if specified position is inside of the grid again (shouldn't be at this point)
         if (pos.row == -1 || pos.col == -1 || pos.col == cols || pos.row == rows) {
-            
             std::cout << "Invalid Input in method: move()";
             return pos;
         }
@@ -119,8 +129,7 @@ struct Maze {
             grid[pos.row][pos.col] = ' ';
             grid[pos.row - 1][pos.col] = moveChar;
 
-            newPos.row = pos.row - 1;
-            newPos.col = pos.col;
+            pos.row -= 1;
         }
 
         //check if the Space on the right of the character is occupied
@@ -129,11 +138,25 @@ struct Maze {
             grid[pos.row][pos.col] = ' ';
             grid[pos.row][pos.col + 1] = moveChar;
 
-            newPos.row = pos.row;
-            newPos.col = pos.col + 1;
+            pos.col += 1;
         }
 
-        return newPos;
+        return pos;
+    }
+
+
+    /// @brief Searches for the moving character in the first Row. Returns, whether it was found or not.
+    /// @return True if Maze is solved, false if not 
+    bool MazeIsSolved(){
+
+        //searach for moveChar in the first row
+        for (auto el : grid[0]){
+
+            if (el == moveChar) {
+                return true;
+            }
+        }
+        return false;
     }
 
 };
