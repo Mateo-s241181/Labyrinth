@@ -1,9 +1,9 @@
 #ifndef HEADER_H
 #define HEADER_H
 
+#include <iostream>
 #include <string>
 #include <vector>
-#include <iostream>
 #include <sstream>
 
 #include "position.h"
@@ -13,14 +13,15 @@ int returnFive();
 
 struct Maze {
 
-    //describing size of the maze
+    ///@brief Number of Rows of the Maze
     int rows;
+     ///@brief Number of Columns of the Maze
     int cols;
 
-    //Describes, which Character moves through the Maze
+    ///@brief Character, which moves through the Maze
     char moveChar;
 
-    //Grid is a 2d-Matrix
+    ///@brief Maze is described by a grid, using a 2D-Matrix
     std::vector<std::vector<char>> grid;
     
     //-------------------------------------------------------------------------------------------------------------------------------
