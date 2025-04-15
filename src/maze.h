@@ -27,7 +27,7 @@ struct Maze {
     //Method Definitions:
     //-------------------------------------------------------------------------------------------------------------------------------
 
-    ///Instantiates empty object of type Maze with cols, rows = 0, an empty grid and a moveChar 'o'
+    ///@brief Instantiates empty object of type Maze with cols, rows = 0, an empty grid and a moveChar 'o'
     Maze(){
         rows = 0;
         cols = 0;
@@ -35,7 +35,7 @@ struct Maze {
         moveChar = 'o';
     }
 
-    ///MazeInit initializes a Maze with a given grid. REQUIREMENT: The grid needs to be rectangular
+    ///@brief Initializes a Maze with a given grid. REQUIREMENT: The grid needs to be rectangular
     void MazeInit(std::vector<std::vector<char>> v) {
 
         //Checks if the grid is empty, avoiding problem of adressing an element of an empty vector
@@ -65,7 +65,7 @@ struct Maze {
 
 
 
-    ///Creates a String-representation of the Maze's Grid 
+    ///@brief Creates a String-representation of the Maze's Grid
     std::string String() {
         std::ostringstream out;
         std::string result;
