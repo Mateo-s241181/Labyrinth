@@ -141,9 +141,7 @@ struct Maze {
     /// @param c Character, to be placed at given position
     void setChar(Position pos, char c){
         
-        if(ValidCharPosition(pos)){
-            grid[pos.row][pos.col] = c;
-        }
+        ValidCharPosition(pos) ? grid[pos.row][pos.col] = c : 0;
     }
     
     
