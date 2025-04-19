@@ -1,10 +1,6 @@
 #include <catch2/catch_test_macros.hpp>
-
 #include <vector>
-
 #include "maze.h"
-#include "testhelpers.h"
-
 
 
 TEST_CASE("Constructor of struct Maze", "[Maze Constructor Test]") {
@@ -74,11 +70,13 @@ TEST_CASE("Initializing starting point", "[Starting Position Test]"){
   };
 
   std::vector<std::vector<char>> v2 = {
-    {'#', '#', '#', ' ', },
-    {'#', '#', ' ', ' ', },
-    {'#', ' ', ' ', '#', },
-    {'#', '#', '#', '#', },
+    {'#', '#', '#', ' '},
+    {'#', '#', ' ', ' '},
+    {'#', ' ', ' ', '#'},
+    {'#', '#', '#', '#'},
   };
+
+  std::vector<std::vector<char>> v3 = {};
 
   m.MazeInit(v1);
   pos = m.MoveCharInit();
@@ -98,6 +96,13 @@ TEST_CASE("Initializing starting point", "[Starting Position Test]"){
   pos = m.MoveCharInit();
 
   CHECK(m.grid == v2);
+  CHECK(pos.row == -1);
+  CHECK(pos.col == -1);
+
+  m.MazeInit(v3);
+  pos = m.MoveCharInit();
+
+  CHECK(m.grid == v3);
   CHECK(pos.row == -1);
   CHECK(pos.col == -1);
 }
@@ -181,7 +186,9 @@ TEST_CASE("Move Functions", "[Testing the Move functions]"){
 
   m.MazeInit(v);
 
-  Position charPos = findChar('o', m.grid);
+  Position charPos;
+  charPos.row = 2;
+  charPos.col = 1;
 
   m.MoveUp(charPos);
   

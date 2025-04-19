@@ -83,17 +83,19 @@ struct Maze {
 
 
     ///@brief Searches for an empty position in the lowest row of the maze, sets the MoveChar there and returns the position.
+    ///@returns Position of moveChar, if it could be set. If the maze wasnt initialized correctly, it returns a position with row ans col = -1
     Position MoveCharInit(){
 
         Position pos;
 
         //If the grid is empty or the rows or cols are zero values, the function should return a default position (-1, -1)
         if (rows == 0 || cols == 0 || grid == std::vector<std::vector<char>> {}) {
-            std::cout<< "FEHLER IN MOVECHARINIT";
+            std::cout<< "Maze was not initalized properly";
             return pos;
         }
 
         //Search for an empty space in the lowest row, set the moveChar there and return the position
+        //Requirement for Mazes => Must be solvable from every starting position in the lowest row
         for(int i = 0; i < cols; i++) {
             if (grid[rows -1][i] == ' '){
                 grid[rows -1][i] = moveChar;
@@ -104,6 +106,7 @@ struct Maze {
             }
         }
 
+        //If no starting Position was found, the Function returns the position (-1, -1)
         std::cout << "No valid starting position found in given Maze";
         return pos;
     }
@@ -162,8 +165,6 @@ struct Maze {
     /// @param pos Specifies the Characters previos position
     void MoveUp(Position &pos){
         grid[pos.row - 1][pos.col] = moveChar;
-        //grid[pos.row][pos.col] = ' ';
-
         pos.row--;
     }
 
@@ -171,8 +172,6 @@ struct Maze {
     /// @param pos Specifies the Characters previos position
     void MoveDown(Position &pos){
         grid[pos.row + 1][pos.col] = moveChar;
-        //grid[pos.row][pos.col] = ' ';
-
         pos.row++;
     }
 
@@ -180,8 +179,6 @@ struct Maze {
     /// @param pos Specifies the Characters previos position
     void MoveRight(Position &pos){
         grid[pos.row][pos.col + 1] = moveChar;
-        //grid[pos.row][pos.col] = ' ';
-
         pos.col++;
     }
 
@@ -189,14 +186,13 @@ struct Maze {
     /// @param pos Specifies the Characters previos position
     void MoveLeft(Position &pos){
         grid[pos.row][pos.col - 1] = moveChar;
-        //grid[pos.row][pos.col] = ' ';
-    
         pos.col--;
     }
 
     /// @brief Solves any Maze by Backtracking
     /// @param pos Valid starting position
     void solveByBacktracking(Position &pos) {
+
         // Base case: Check if the maze is solved
         if (MazeIsSolved()) {
             std::cout << "Maze Solved!\n\n\n";
@@ -213,56 +209,49 @@ struct Maze {
         // Try moving upwards
         if (getChar(pos.row - 1, pos.col) == ' ') {
             MoveUp(pos);
-            //std::cout << String() << "\n\n";
+            //recursive call
             solveByBacktracking(pos);
-            if (!MazeIsSolved()) { // Backtrack if not solved
+
+            //if the maze wasn't solved, the position and the char at the current position need to be reset
+            if (!MazeIsSolved()) {
                 setChar(pos, ' ');
-                MoveDown(pos);
-            } else {
-                grid[pos.row][pos.col] == moveChar;
-                return;
+                pos.row--;
             }
         }
     
         // Try moving to the right
         if (getChar(pos.row, pos.col + 1) == ' ') {
             MoveRight(pos);
-            //std::cout << String() << "\n\n";
             solveByBacktracking(pos);
-            if (!MazeIsSolved()) { // Backtrack if not solved
+
+            //if the maze wasn't solved, the position and the char at the current position need to be reset
+            if (!MazeIsSolved()) {
                 setChar(pos, ' ');
-                MoveLeft(pos);
-            } else {
-                grid[pos.row][pos.col] == moveChar;
-                return;
+                pos.col--;
             }
         }
     
         // Try moving downwards
         if (getChar(pos.row + 1, pos.col) == ' ') {
             MoveDown(pos);
-            //std::cout << String() << "\n\n";
+            
+            //if the maze wasn't solved, the position and the char at the current position need to be reset
             solveByBacktracking(pos);
             if (!MazeIsSolved()) { // Backtrack if not solved
                 setChar(pos, ' ');
-                MoveUp(pos);
-            } else {
-                grid[pos.row][pos.col] == moveChar;
-                return;
+                pos.row++;
             }
         }
     
         // Try moving to the left
         if (getChar(pos.row, pos.col - 1) == ' ') {
             MoveLeft(pos);
-            //std::cout << String() << "\n\n";
+            
+            //if the maze wasn't solved, the position and the char at the current position need to be reset
             solveByBacktracking(pos);
             if (!MazeIsSolved()) { // Backtrack if not solved
                 setChar(pos, ' ');
-                MoveRight(pos);
-            } else {
-                grid[pos.row][pos.col] == moveChar;
-                return;
+                pos.col++;
             }
         }
     }
