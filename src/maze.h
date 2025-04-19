@@ -215,7 +215,7 @@ struct Maze {
             //if the maze wasn't solved, the position and the char at the current position need to be reset
             if (!MazeIsSolved()) {
                 setChar(pos, ' ');
-                pos.row--;
+                pos.row++;
             }
         }
     
@@ -239,7 +239,7 @@ struct Maze {
             solveByBacktracking(pos);
             if (!MazeIsSolved()) { // Backtrack if not solved
                 setChar(pos, ' ');
-                pos.row++;
+                pos.row--;
             }
         }
     
