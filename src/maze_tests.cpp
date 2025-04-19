@@ -3,12 +3,7 @@
 #include <vector>
 
 #include "maze.h"
-
-
-TEST_CASE("Basic testing workflow", "[Basic Testing]") {
-  CHECK(returnFive() == 5);
-}
-
+#include "testhelpers.h"
 
 
 
@@ -135,61 +130,6 @@ TEST_CASE("String Output of Maze", "[Maze as String-Output]") {
 }
 
 
-
-TEST_CASE("Move Method", "[Moving the Character]"){
-
-  Maze m;
-  Position pos;
-  std::vector<std::vector<char>> v1 = {
-    {'#', '#', '#', ' '},
-    {'#', '#', ' ', ' '},
-    {'#', ' ', ' ', '#'},
-    {'#', ' ', '#', '#'},
-  };
-  
-  std::vector<std::vector<char>> expected_1 = {
-    {'#', '#', '#', ' '},
-    {'#', '#', ' ', ' '},
-    {'#', 'o', ' ', '#'},
-    {'#', ' ', '#', '#'},
-  };
-
-  std::vector<std::vector<char>> expected_2 = {
-    {'#', '#', '#', ' '},
-    {'#', '#', ' ', ' '},
-    {'#', ' ', 'o', '#'},
-    {'#', ' ', '#', '#'},
-  };
-
-  std::vector<std::vector<char>> emptyGrid = {};
-
-  m.MazeInit(v1);
-  
-  pos = m.move(m.MoveCharInit());
-
-  CHECK(m.grid == expected_1);
-
-  //Calling move() without saving it's value in another variable
-  m.move(pos);
-
-  CHECK(m.grid == expected_2);
-
-  m.MazeInit(emptyGrid);
-  pos = m.MoveCharInit();
-
-  CHECK(pos.row == -1);
-  CHECK(pos.col == -1);
-
-  pos = m.move(pos);
-
-  CHECK(pos.row == -1);
-  CHECK(pos.col == -1);
-}
-
-
-
-
-
 TEST_CASE("Wincondition", "[Wincondition Test]"){
 
   Maze m;
@@ -227,3 +167,43 @@ TEST_CASE("Wincondition", "[Wincondition Test]"){
 
   CHECK(m.MazeIsSolved() == false);
 }
+
+TEST_CASE("Move Functions", "[Testing the Move functions]"){
+
+  Maze m;
+
+  std::vector<std::vector<char>> v = {
+    {'#', '#', '#', ' '},
+    {'#', ' ', ' ', ' '},
+    {' ', 'o', ' ', '#'},
+    {'#', ' ', '#', '#'},
+  };
+
+  m.MazeInit(v);
+
+  Position charPos = findChar('o', m.grid);
+
+  m.MoveUp(charPos);
+  
+  CHECK(charPos.row == 1);
+  CHECK(charPos.col == 1);
+
+  m.MoveDown(charPos);
+
+  CHECK(charPos.row == 2);
+  CHECK(charPos.col == 1);
+  
+  m.MoveRight(charPos);
+
+  CHECK(charPos.row == 2);
+  CHECK(charPos.col == 2);
+
+  m.MoveLeft(charPos);
+
+  CHECK(charPos.row == 2);
+  CHECK(charPos.col == 1);
+
+}
+
+
+
